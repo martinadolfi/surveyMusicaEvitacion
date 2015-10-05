@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var fs = require ('fs');
 var shuffle = function (array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -19,26 +19,15 @@ var shuffle = function (array) {
 
   return array;
 };
+var audioList=[];
+fs.readdir("public/audio/",function(err,files){
+  if (!err){
+    for (var f in files){
+      audioList.push("audio/"+files[f]);
+    }
+  }
+});
 
-var audioList=[
-  "audio/001.mp3",
-  "audio/002.mp3",
-  "audio/003.mp3",
-  "audio/004.mp3",
-  "audio/005.mp3",
-  "audio/006.mp3",
-  "audio/007.mp3",
-  "audio/008.mp3",
-  "audio/009.mp3",
-  "audio/010.mp3",
-  "audio/011.mp3",
-  "audio/012.mp3",
-  "audio/013.mp3",
-  "audio/014.mp3",
-  "audio/015.mp3",
-  "audio/016.mp3",
-  "audio/017.mp3"
-];
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
