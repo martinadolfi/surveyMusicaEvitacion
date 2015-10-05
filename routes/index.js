@@ -19,15 +19,9 @@ var shuffle = function (array) {
 
   return array;
 };
-var audioList=[];
-fs.readdir("public/audio/",function(err,files){
-  if (!err){
-    for (var f in files){
-      audioList.push("audio/"+files[f]);
-    }
-  }
-});
-
+var userReference=[];
+var currentID=0;
+var howManyAudios=10;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -35,7 +29,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/main', function(req, res, next) {
-  res.render('main',{id:0,audioList:shuffle(audioList)});
+    var audioList=[];
+    fs.readdir("public/audio/",function(err,files){
+        if (!err){
+            for (var f in files){
+                audioList.push("audio/"+files[f]);
+            }
+        }
+        userReference.push({id:currentID,audioList:audioList});
+        res.render('main',{id:currentID,audioList:shuffle(audioList).slice(0,howManyAudios-1)});
+        currentID++;
+    });
+
 });
 
 
