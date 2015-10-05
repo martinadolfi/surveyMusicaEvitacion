@@ -1,8 +1,13 @@
 /**
  * Created by MartinG on 9/27/2015.
  */
-var myID = 0;
-var audio = [new Audio('audio/001.mp3'),new Audio('audio/002.mp3'),new Audio('audio/003.mp3'),new Audio('audio/004.mp3'),new Audio('audio/005.mp3'),new Audio('audio/006.mp3'),new Audio('audio/007.mp3'),new Audio('audio/008.mp3')];
+
+var myID = recievedID;
+var audio=[];
+for (var a in recievedAudioList){
+    audio.push(new Audio(recievedAudioList[a]));
+}
+//var audio = [new Audio('audio/001.mp3'),new Audio('audio/002.mp3'),new Audio('audio/003.mp3'),new Audio('audio/004.mp3'),new Audio('audio/005.mp3'),new Audio('audio/006.mp3'),new Audio('audio/007.mp3'),new Audio('audio/008.mp3')];
 var i=0;
 var resultados=[];
 var tiempoDeEncuesta=20000;
