@@ -24,11 +24,11 @@ var currentID=0;
 var howManyAudios=10;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/old', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/main', function(req, res, next) {
+router.get('/', function(req, res, next) {
     var audioList=[];
     fs.readdir("public/audio/",function(err,files){
         if (!err){
