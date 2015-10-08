@@ -36,13 +36,28 @@ router.get('/', function(req, res, next) {
                 audioList.push("audio/"+files[f]);
             }
         }
-        userReference.push({id:currentID,audioList:audioList});
-        res.render('main',{id:currentID,audioList:shuffle(audioList).slice(0,howManyAudios-1)});
+        var thisU={id:currentID,audioList:shuffle(audioList)};
+        userReference.push(thisU);
+        res.render('main',{id:currentID,audioList:thisU.audioList.slice(0,howManyAudios-1)});
         currentID++;
     });
 
 });
 
+router.get('/newAudio',function(req,res,next){
+    var myId=req.query.userId;
+    var audioIndex=parseInt(req.query.audioIndex);
+    var u={};
+    for (var i in userReference){
+        if (userReference[i].id==myId){
+            console.log("encontre");
+            console.dir(userReference[i].audioList[0]);
+            console.log(userReference[i].audioList[audioIndex]);
+            res.end(userReference[i].audioList[audioIndex]);
+            break;
+        }
+    }
+});
 
 
 
