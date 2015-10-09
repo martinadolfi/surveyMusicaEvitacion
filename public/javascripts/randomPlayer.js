@@ -7,15 +7,21 @@ var audio=[];
 for (var a in recievedAudioList){
     audio.push(new Audio(recievedAudioList[a]));
 }
-//var audio = [new Audio('audio/001.mp3'),new Audio('audio/002.mp3'),new Audio('audio/003.mp3'),new Audio('audio/004.mp3'),new Audio('audio/005.mp3'),new Audio('audio/006.mp3'),new Audio('audio/007.mp3'),new Audio('audio/008.mp3')];
 var i=0;
 var resultados=[];
 var tiempoDeEncuesta=20000;
+var threshold=5;
 var colores=["yellow","red","blue","black","green","pink","violet"];
 var iColores=0;
 var start,end={};
 var cron=0;
 var audioDelay={};
+var getNewAudio = function() {
+    $.get("/newAudio?userId=" + myID + "&audioIndex=" + audio.length, function (data) {
+        console.log(data);
+        audio.push(new Audio(data));
+    });
+};
 var finDeAudio = function(){
     end = new Date().getTime();
     audio[i-1].pause();
@@ -35,7 +41,10 @@ var playAudio = function(){
     }).fadeTo("slow",1);
     i++;
     if ( i == audio.length ){
-        alert("te pasas");
+        alert("te pasaste");
+    }
+    if ( i == audio.length-threshold){
+        getNewAudio();
     }
     iColores++;
     if (iColores == colores.length){iColores=0;}
@@ -43,6 +52,7 @@ var playAudio = function(){
         $( this ).css("background-color", colores[iColores]);
     }).delay(300).fadeTo('slow', 0.3);
 };
+
 $(function () {
     $("#btnPlay").click(function() {
         clearTimeout(audioDelay);
