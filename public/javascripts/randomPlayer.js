@@ -11,7 +11,7 @@ var i=0;
 var resultados=[];
 var tiempoDeEncuesta=20000;
 var threshold=5;
-var colores=["yellow","red","blue","black","green","pink","violet"];
+var colores=["yellow","red","blue","black","green","pink","violet","orange"];
 var iColores=0;
 var start,end={};
 var cron=0;
@@ -48,9 +48,9 @@ var playAudio = function(){
     }
     iColores++;
     if (iColores == colores.length){iColores=0;}
-    $('#myPanel').fadeTo('slow', 0.3, function() {
+    $('#myPanel').fadeTo('slow', 0, function() {
         $( this ).css("background-color", colores[iColores]);
-    }).delay(300).fadeTo('slow', 0.3);
+    }).delay(300).fadeTo('slow', 1);
 };
 
 $(function () {
