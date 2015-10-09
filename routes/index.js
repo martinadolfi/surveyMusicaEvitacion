@@ -50,9 +50,6 @@ router.get('/newAudio',function(req,res,next){
     var u={};
     for (var i in userReference){
         if (userReference[i].id==myId){
-            console.log("encontre");
-            console.dir(userReference[i].audioList[0]);
-            console.log(userReference[i].audioList[audioIndex]);
             res.end(userReference[i].audioList[audioIndex]);
             break;
         }
