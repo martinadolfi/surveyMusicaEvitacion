@@ -41,7 +41,7 @@ var playAudio = function(){
     if (iColores == colores.length){iColores=0;}
     $('#myPanel').fadeTo('slow', 0.3, function() {
         $( this ).css("background-color", colores[iColores]);
-    }).delay(1000).fadeTo('slow', 1);
+    }).delay(300).fadeTo('slow', 0.3);
 };
 $(function () {
     $("#btnPlay").click(function() {
