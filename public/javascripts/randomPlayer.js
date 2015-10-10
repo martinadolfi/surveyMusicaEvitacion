@@ -65,8 +65,12 @@ $(function () {
                 if (!audio[i-1].ended){
                     finDeAudio();
                 }
-                console.log(resultados);
-                $("#myResults").html(JSON.stringify(resultados));
+                console.dir(resultados);
+                $.post('/saveSurvey',{surveyData:JSON.stringify(resultados)},function(data){
+
+                    console.log("data sent");
+                });
+                //$("#myResults").html(JSON.stringify(resultados));
             }, tiempoDeEncuesta);
         }
         playAudio();

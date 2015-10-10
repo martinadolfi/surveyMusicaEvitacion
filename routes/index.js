@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var fs = require ('fs');
+var fs = require('fs');
+var idFile='id.txt';
+var surveyFile='survey.txt';
 var shuffle = function (array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -23,6 +25,9 @@ var userReference=[];
 var currentID=0;
 var howManyAudios=10;
 
+currentID=fs.readFileSync(idFile);
+console.log("currentId=" + currentID);
+
 /* GET home page. */
 router.get('/old', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -38,8 +43,12 @@ router.get('/', function(req, res, next) {
         }
         var thisU={id:currentID,audioList:shuffle(audioList)};
         userReference.push(thisU);
-        res.render('main',{id:currentID,audioList:thisU.audioList.slice(0,howManyAudios-1)});
+        res.render('main',{id:parseInt(currentID),audioList:thisU.audioList.slice(0,howManyAudios-1)});
         currentID++;
+        fs.writeFile(idFile,currentID,function(err){
+           if (err) throw err;
+            console.log("id++");
+        });
     });
 
 });
@@ -56,6 +65,15 @@ router.get('/newAudio',function(req,res,next){
     }
 });
 
+router.post('/saveSurvey',function(req,res){
+    var data = JSON.parse(req.body.surveyData)  ;
+    fs.appendFile(surveyFile,req.body.surveyData + "\n",function(err){
+        if (err) throw err;
+        console.log("saved survey ID " + data[0].id);
+        res.end();
+    });
+
+});
 
 
 module.exports = router;
